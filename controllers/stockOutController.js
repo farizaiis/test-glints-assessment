@@ -34,19 +34,19 @@ module.exports = {
                 });
             }
 
-            if (body.date > today) {
-                return res.status(400).json({
-                    status: 'failed',
-                    message: 'Cannot create data for tommorow',
-                });
-            }
+            // if (body.date > today) {
+            //     return res.status(400).json({
+            //         status: 'failed',
+            //         message: 'Cannot create data for tommorow',
+            //     });
+            // }
 
-            if (body.date < today) {
-                return res.status(400).json({
-                    status: 'failed',
-                    message: 'Cannot create data for date already passed',
-                });
-            }
+            // if (body.date < today) {
+            //     return res.status(400).json({
+            //         status: 'failed',
+            //         message: 'Cannot create data for date already passed',
+            //     });
+            // }
 
             const checkItem = await dataItems.findOne({
                 where: { id: body.dataItemId },
@@ -134,19 +134,19 @@ module.exports = {
                 });
             }
 
-            if (body.date > today) {
-                return res.status(400).json({
-                    status: 'failed',
-                    message: 'Cannot update data for tommorow',
-                });
-            }
+            // if (body.date > today) {
+            //     return res.status(400).json({
+            //         status: 'failed',
+            //         message: 'Cannot update data for tommorow',
+            //     });
+            // }
 
-            if (body.date < today) {
-                return res.status(400).json({
-                    status: 'failed',
-                    message: 'Cannot update data for date already passed',
-                });
-            }
+            // if (body.date < today) {
+            //     return res.status(400).json({
+            //         status: 'failed',
+            //         message: 'Cannot update data for date already passed',
+            //     });
+            // }
 
             await stockOutItems.update(
                 {

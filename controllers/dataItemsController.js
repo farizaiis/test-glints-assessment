@@ -239,397 +239,6 @@ module.exports = {
 
         try {
             if (stock == 'in') {
-                if (sort == 'date') {
-                    if (filter == 'day') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: date,
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'week') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: dateInput,
-                                            [Op.lt]: lastWeek,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'month') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstDay,
-                                            [Op.lt]: lastDay,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'year') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstMonth,
-                                            [Op.lt]: lastMonth,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    const findData = await dataItems.findOne({
-                        where: { id: req.params.id },
-                        include: [
-                            {
-                                model: stockInItems,
-                                as: 'stockinitems',
-                                attributes: {
-                                    exclude: [
-                                        'id',
-                                        'dataItemId',
-                                        'createdAt',
-                                        'updatedAt',
-                                    ],
-                                },
-                                order: [['date', 'DESC']],
-                            },
-                        ],
-                        attributes: { exclude: ['createdAt', 'updatedAt'] },
-                    });
-
-                    if (!findData) {
-                        return res.status(400).json({
-                            status: 'failed',
-                            message: 'Data not found',
-                        });
-                    }
-
-                    return res.status(200).json({
-                        status: 'success',
-                        message: 'Retrieve data Success',
-                        data: findData,
-                    });
-                }
-
-                if (sort == 'stock') {
-                    if (filter == 'day') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: date,
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'week') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: dateInput,
-                                            [Op.lt]: lastWeek,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'month') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstDay,
-                                            [Op.lt]: lastDay,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'year') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstMonth,
-                                            [Op.lt]: lastMonth,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-                    const findData = await dataItems.findOne({
-                        where: { id: req.params.id },
-                        include: [
-                            {
-                                model: stockInItems,
-                                as: 'stockinitems',
-                                attributes: {
-                                    exclude: [
-                                        'id',
-                                        'dataItemId',
-                                        'createdAt',
-                                        'updatedAt',
-                                    ],
-                                },
-                                order: [['stock', 'ASC']],
-                            },
-                        ],
-                        attributes: { exclude: ['createdAt', 'updatedAt'] },
-                    });
-
-                    if (!findData) {
-                        return res.status(400).json({
-                            status: 'failed',
-                            message: 'Data not found',
-                        });
-                    }
-
-                    return res.status(200).json({
-                        status: 'success',
-                        message: 'Retrieve data Success',
-                        data: findData,
-                    });
-                }
-
                 if (filter == 'day') {
                     const findData = await dataItems.findOne({
                         where: { id: req.params.id },
@@ -821,398 +430,6 @@ module.exports = {
             }
 
             if (stock == 'out') {
-                if (sort == 'date') {
-                    if (filter == 'day') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: date,
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'week') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: dateInput,
-                                            [Op.lt]: lastWeek,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'month') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstDay,
-                                            [Op.lt]: lastDay,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'year') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstMonth,
-                                            [Op.lt]: lastMonth,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    const findData = await dataItems.findOne({
-                        where: { id: req.params.id },
-                        include: [
-                            {
-                                model: stockOutItems,
-                                as: 'stockoutitems',
-                                attributes: {
-                                    exclude: [
-                                        'id',
-                                        'dataItemId',
-                                        'createdAt',
-                                        'updatedAt',
-                                    ],
-                                },
-                                order: [['date', 'DESC']],
-                            },
-                        ],
-                        attributes: { exclude: ['createdAt', 'updatedAt'] },
-                    });
-
-                    if (!findData) {
-                        return res.status(400).json({
-                            status: 'failed',
-                            message: 'Data not found',
-                        });
-                    }
-
-                    return res.status(200).json({
-                        status: 'success',
-                        message: 'Retrieve data Success',
-                        data: findData,
-                    });
-                }
-
-                if (sort == 'stock') {
-                    if (filter == 'day') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: date,
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'week') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: dateInput,
-                                            [Op.lt]: lastWeek,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'month') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstDay,
-                                            [Op.lt]: lastDay,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'year') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstMonth,
-                                            [Op.lt]: lastMonth,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    const findData = await dataItems.findOne({
-                        where: { id: req.params.id },
-                        include: [
-                            {
-                                model: stockOutItems,
-                                as: 'stockoutitems',
-                                attributes: {
-                                    exclude: [
-                                        'id',
-                                        'dataItemId',
-                                        'createdAt',
-                                        'updatedAt',
-                                    ],
-                                },
-                                order: [['stock', 'ASC']],
-                            },
-                        ],
-                        attributes: { exclude: ['createdAt', 'updatedAt'] },
-                    });
-
-                    if (!findData) {
-                        return res.status(400).json({
-                            status: 'failed',
-                            message: 'Data not found',
-                        });
-                    }
-
-                    return res.status(200).json({
-                        status: 'success',
-                        message: 'Retrieve data Success',
-                        data: findData,
-                    });
-                }
-
                 if (filter == 'day') {
                     const findData = await dataItems.findOne({
                         where: { id: req.params.id },
@@ -1404,569 +621,6 @@ module.exports = {
             }
 
             if (stock == 'all') {
-                if (sort == 'date') {
-                    if (filter == 'day') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: date,
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: date,
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'week') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: dateInput,
-                                            [Op.lt]: lastWeek,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: dateInput,
-                                            [Op.lt]: lastWeek,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'month') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstDay,
-                                            [Op.lt]: lastDay,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstDay,
-                                            [Op.lt]: lastDay,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'year') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstMonth,
-                                            [Op.lt]: lastMonth,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstMonth,
-                                            [Op.lt]: lastMonth,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['date', 'DESC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    const findData = await dataItems.findOne({
-                        where: { id: req.params.id },
-                        include: [
-                            {
-                                model: stockInItems,
-                                as: 'stockinitems',
-                                attributes: {
-                                    exclude: [
-                                        'id',
-                                        'dataItemId',
-                                        'createdAt',
-                                        'updatedAt',
-                                    ],
-                                },
-                                order: [['date', 'DESC']],
-                            },
-                            {
-                                model: stockOutItems,
-                                as: 'stockoutitems',
-                                attributes: {
-                                    exclude: [
-                                        'id',
-                                        'dataItemId',
-                                        'createdAt',
-                                        'updatedAt',
-                                    ],
-                                },
-                                order: [['date', 'DESC']],
-                            },
-                        ],
-                        attributes: { exclude: ['createdAt', 'updatedAt'] },
-                    });
-
-                    if (!findData) {
-                        return res.status(400).json({
-                            status: 'failed',
-                            message: 'Data not found',
-                        });
-                    }
-
-                    return res.status(200).json({
-                        status: 'success',
-                        message: 'Retrieve data Success',
-                        data: findData,
-                    });
-                }
-
-                if (sort == 'stock') {
-                    if (filter == 'day') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: date,
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: date,
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'week') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: dateInput,
-                                            [Op.lt]: lastWeek,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: dateInput,
-                                            [Op.lt]: lastWeek,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'month') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstDay,
-                                            [Op.lt]: lastDay,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstDay,
-                                            [Op.lt]: lastDay,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if (filter == 'year') {
-                        const findData = await dataItems.findOne({
-                            where: { id: req.params.id },
-                            include: [
-                                {
-                                    model: stockInItems,
-                                    as: 'stockinitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstMonth,
-                                            [Op.lt]: lastMonth,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                                {
-                                    model: stockOutItems,
-                                    as: 'stockoutitems',
-                                    where: {
-                                        date: {
-                                            [Op.gte]: firstMonth,
-                                            [Op.lt]: lastMonth,
-                                        },
-                                    },
-                                    attributes: {
-                                        exclude: [
-                                            'id',
-                                            'dataItemId',
-                                            'createdAt',
-                                            'updatedAt',
-                                        ],
-                                    },
-                                    order: [['stock', 'ASC']],
-                                },
-                            ],
-                            attributes: { exclude: ['createdAt', 'updatedAt'] },
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-                    const findData = await dataItems.findOne({
-                        where: { id: req.params.id },
-                        include: [
-                            {
-                                model: stockInItems,
-                                as: 'stockinitems',
-                                attributes: {
-                                    exclude: [
-                                        'id',
-                                        'dataItemId',
-                                        'createdAt',
-                                        'updatedAt',
-                                    ],
-                                },
-                                order: [['stock', 'ASC']],
-                            },
-                            {
-                                model: stockOutItems,
-                                as: 'stockoutitems',
-                                attributes: {
-                                    exclude: [
-                                        'id',
-                                        'dataItemId',
-                                        'createdAt',
-                                        'updatedAt',
-                                    ],
-                                },
-                                order: [['stock', 'ASC']],
-                            },
-                        ],
-                        attributes: { exclude: ['createdAt', 'updatedAt'] },
-                    });
-
-                    if (!findData) {
-                        return res.status(400).json({
-                            status: 'failed',
-                            message: 'Data not found',
-                        });
-                    }
-
-                    return res.status(200).json({
-                        status: 'success',
-                        message: 'Retrieve data Success',
-                        data: findData,
-                    });
-                }
-
                 if (filter == 'day') {
                     const findData = await dataItems.findOne({
                         where: { id: req.params.id },
@@ -2255,6 +909,7 @@ module.exports = {
                 data: findData,
             });
         } catch (error) {
+            console.log(error);
             return res.status(500).json({
                 status: 'failed',
                 message: 'internal server error',
@@ -2268,10 +923,71 @@ module.exports = {
         const filter = req.query.filter;
         const min = req.query.min;
         const max = req.query.max;
+        const sort = req.query.sort
         try {
             if (names) {
                 if (category) {
                     if (filter == 'Price' || filter == 'price') {
+                        if(sort == 'date') {
+                            const findData = await dataItems.findAll({
+                                distinct: true,
+                                where: {
+                                    category: category,
+                                    name: {
+                                        [Op.iLike]: '%' + names + '%',
+                                    },
+                                    price: {
+                                        [Op.gte]: min,
+                                        [Op.lte]: max,
+                                    },
+                                },
+                                order: [['date', 'DESC']],
+                            });
+    
+                            if (!findData) {
+                                return res.status(400).json({
+                                    status: 'failed',
+                                    message: 'Data not found',
+                                });
+                            }
+    
+                            return res.status(200).json({
+                                status: 'success',
+                                message: 'Retrieve data Success',
+                                data: findData,
+                            });
+                        }
+
+                        if(sort == 'price') {
+                            const findData = await dataItems.findAll({
+                                distinct: true,
+                                where: {
+                                    category: category,
+                                    name: {
+                                        [Op.iLike]: '%' + names + '%',
+                                    },
+                                    price: {
+                                        [Op.gte]: min,
+                                        [Op.lte]: max,
+                                    },
+                                },
+                                order: [['price', 'DESC']],
+                            });
+    
+                            if (!findData) {
+                                return res.status(400).json({
+                                    status: 'failed',
+                                    message: 'Data not found',
+                                });
+                            }
+    
+                            return res.status(200).json({
+                                status: 'success',
+                                message: 'Retrieve data Success',
+                                data: findData,
+                            });
+                        }
+
                         const findData = await dataItems.findAll({
                             distinct: true,
                             where: {
@@ -2300,6 +1016,58 @@ module.exports = {
                         });
                     }
 
+                    if(sort == 'date') {
+                        const findData = await dataItems.findAll({
+                            distinct: true,
+                            where: {
+                                category: category,
+                                name: {
+                                    [Op.iLike]: '%' + names + '%',
+                                },
+                            },
+                            order: [['date', 'DESC']],
+                        });
+
+                        if (!findData) {
+                            return res.status(400).json({
+                                status: 'failed',
+                                message: 'Data not found',
+                            });
+                        }
+
+                        return res.status(200).json({
+                            status: 'success',
+                            message: 'Retrieve data Success',
+                            data: findData,
+                        });
+                    }
+
+                    if(sort == 'price') {
+                        const findData = await dataItems.findAll({
+                            distinct: true,
+                            where: {
+                                category: category,
+                                name: {
+                                    [Op.iLike]: '%' + names + '%',
+                                },
+                            },
+                            order: [['price', 'DESC']],
+                        });
+
+                        if (!findData) {
+                            return res.status(400).json({
+                                status: 'failed',
+                                message: 'Data not found',
+                            });
+                        }
+
+                        return res.status(200).json({
+                            status: 'success',
+                            message: 'Retrieve data Success',
+                            data: findData,
+                        });
+                    }
+                    
                     const findData = await dataItems.findAll({
                         distinct: true,
                         where: {
@@ -2325,6 +1093,64 @@ module.exports = {
                 }
 
                 if (filter == 'Price' || filter == 'price') {
+                    if(sort == 'date') {
+                        const findData = await dataItems.findAll({
+                            distinct: true,
+                            where: {
+                                name: {
+                                    [Op.iLike]: '%' + names + '%',
+                                },
+                                price: {
+                                    [Op.gte]: min,
+                                    [Op.lte]: max,
+                                },
+                            },
+                            order: [['date', 'DESC']],
+                        });
+
+                        if (!findData) {
+                            return res.status(400).json({
+                                status: 'failed',
+                                message: 'Data not found',
+                            });
+                        }
+
+                        return res.status(200).json({
+                            status: 'success',
+                            message: 'Retrieve data Success',
+                            data: findData,
+                        });
+                    }
+
+                    if(sort == 'price') {
+                        const findData = await dataItems.findAll({
+                            distinct: true,
+                            where: {
+                                name: {
+                                    [Op.iLike]: '%' + names + '%',
+                                },
+                                price: {
+                                    [Op.gte]: min,
+                                    [Op.lte]: max,
+                                },
+                            },
+                            order: [['price', 'DESC']],
+                        });
+
+                        if (!findData) {
+                            return res.status(400).json({
+                                status: 'failed',
+                                message: 'Data not found',
+                            });
+                        }
+
+                        return res.status(200).json({
+                            status: 'success',
+                            message: 'Retrieve data Success',
+                            data: findData,
+                        });
+                    }
+
                     const findData = await dataItems.findAll({
                         distinct: true,
                         where: {
@@ -2336,6 +1162,56 @@ module.exports = {
                                 [Op.lte]: max,
                             },
                         },
+                    });
+
+                    if (!findData) {
+                        return res.status(400).json({
+                            status: 'failed',
+                            message: 'Data not found',
+                        });
+                    }
+
+                    return res.status(200).json({
+                        status: 'success',
+                        message: 'Retrieve data Success',
+                        data: findData,
+                    });
+                }
+
+                if(sort == 'date') {
+                    const findData = await dataItems.findAll({
+                        distinct: true,
+                        where: {
+                            name: {
+                                [Op.iLike]: '%' + names + '%',
+                            }
+                        },
+                        order: [['date', 'DESC']],
+                    });
+
+                    if (!findData) {
+                        return res.status(400).json({
+                            status: 'failed',
+                            message: 'Data not found',
+                        });
+                    }
+
+                    return res.status(200).json({
+                        status: 'success',
+                        message: 'Retrieve data Success',
+                        data: findData,
+                    });
+                }
+
+                if(sort == 'price') {
+                    const findData = await dataItems.findAll({
+                        distinct: true,
+                        where: {
+                            name: {
+                                [Op.iLike]: '%' + names + '%',
+                            },
+                        },
+                        order: [['price', 'DESC']],
                     });
 
                     if (!findData) {
@@ -2377,6 +1253,60 @@ module.exports = {
 
             if (category) {
                 if (filter == 'Price' || filter == 'price') {
+                    if(sort == 'date') {
+                        const findData = await dataItems.findAll({
+                            distinct: true,
+                            where: {
+                                category: category,
+                                price: {
+                                    [Op.gte]: min,
+                                    [Op.lte]: max,
+                                },
+                            },
+                            order: [['date', 'DESC']],
+                        });
+
+                        if (!findData) {
+                            return res.status(400).json({
+                                status: 'failed',
+                                message: 'Data not found',
+                            });
+                        }
+
+                        return res.status(200).json({
+                            status: 'success',
+                            message: 'Retrieve data Success',
+                            data: findData,
+                        });
+                    }
+
+                    if(sort == 'price') {
+                        const findData = await dataItems.findAll({
+                            distinct: true,
+                            where: {
+                                category: category,
+                                price: {
+                                    [Op.gte]: min,
+                                    [Op.lte]: max,
+                                },
+                            },
+                            order: [['price', 'DESC']],
+                        });
+
+                        if (!findData) {
+                            return res.status(400).json({
+                                status: 'failed',
+                                message: 'Data not found',
+                            });
+                        }
+
+                        return res.status(200).json({
+                            status: 'success',
+                            message: 'Retrieve data Success',
+                            data: findData,
+                        });
+                    }
+
                     const findData = await dataItems.findAll({
                         distinct: true,
                         where: {
@@ -2386,6 +1316,52 @@ module.exports = {
                                 [Op.lte]: max,
                             },
                         },
+                    });
+
+                    if (!findData) {
+                        return res.status(400).json({
+                            status: 'failed',
+                            message: 'Data not found',
+                        });
+                    }
+
+                    return res.status(200).json({
+                        status: 'success',
+                        message: 'Retrieve data Success',
+                        data: findData,
+                    });
+                }
+
+                if(sort == 'date') {
+                    const findData = await dataItems.findAll({
+                        distinct: true,
+                        where: {
+                            category: category,
+                        },
+                        order: [['date', 'DESC']],
+                    });
+
+                    if (!findData) {
+                        return res.status(400).json({
+                            status: 'failed',
+                            message: 'Data not found',
+                        });
+                    }
+
+                    return res.status(200).json({
+                        status: 'success',
+                        message: 'Retrieve data Success',
+                        data: findData,
+                    });
+                }
+
+                if(sort == 'price') {
+                    const findData = await dataItems.findAll({
+                        distinct: true,
+                        where: {
+                            category: category,
+                        },
+                        order: [['price', 'DESC']],
                     });
 
                     if (!findData) {
@@ -2424,6 +1400,57 @@ module.exports = {
             }
 
             if (filter == 'Price' || filter == 'price') {
+                if(sort == 'date') {
+                    const findData = await dataItems.findAll({
+                        distinct: true,
+                        where: {
+                            price: {
+                                [Op.gte]: min,
+                                [Op.lte]: max,
+                            },
+                        },
+                        order: [['date', 'DESC']],
+                    });
+
+                    if (!findData) {
+                        return res.status(400).json({
+                            status: 'failed',
+                            message: 'Data not found',
+                        });
+                    }
+
+                    return res.status(200).json({
+                        status: 'success',
+                        message: 'Retrieve data Success',
+                        data: findData,
+                    });
+                }
+
+                if(sort == 'price') {
+                    const findData = await dataItems.findAll({
+                        distinct: true,
+                        where: {
+                            price: {
+                                [Op.gte]: min,
+                                [Op.lte]: max,
+                            },
+                        },
+                        order: [['price', 'DESC']],
+                    });
+
+                    if (!findData) {
+                        return res.status(400).json({
+                            status: 'failed',
+                            message: 'Data not found',
+                        });
+                    }
+
+                    return res.status(200).json({
+                        status: 'success',
+                        message: 'Retrieve data Success',
+                        data: findData,
+                    });
+                }
                 const findData = await dataItems.findAll({
                     distinct: true,
                     where: {
@@ -2432,6 +1459,46 @@ module.exports = {
                             [Op.lte]: max,
                         },
                     },
+                });
+
+                if (!findData) {
+                    return res.status(400).json({
+                        status: 'failed',
+                        message: 'Data not found',
+                    });
+                }
+
+                return res.status(200).json({
+                    status: 'success',
+                    message: 'Retrieve data Success',
+                    data: findData,
+                });
+            }
+
+            if(sort == 'date') {
+                const findData = await dataItems.findAll({
+                    distinct: true,
+                    order: [['date', 'DESC']],
+                });
+
+                if (!findData) {
+                    return res.status(400).json({
+                        status: 'failed',
+                        message: 'Data not found',
+                    });
+                }
+
+                return res.status(200).json({
+                    status: 'success',
+                    message: 'Retrieve data Success',
+                    data: findData,
+                });
+            }
+
+            if(sort == 'price') {
+                const findData = await dataItems.findAll({
+                    distinct: true,
+                    order: [['price', 'DESC']],
                 });
 
                 if (!findData) {

@@ -49,16 +49,15 @@ module.exports = {
             }
 
             const checkItem = await dataItems.findOne({
-                where : {id: body.dataItemId}
-            })
+                where: { id: body.dataItemId },
+            });
 
-            if(!checkItem) {
+            if (!checkItem) {
                 return res.status(400).json({
                     status: 'failed',
                     message: 'Data not found',
                 });
             }
-
 
             const createData = await stockInItems.create({
                 dataItemId: body.dataItemId,
@@ -66,7 +65,7 @@ module.exports = {
                 date: body.date,
             });
 
-            if(!createData) {
+            if (!createData) {
                 return res.status(400).json({
                     status: 'failed',
                     message: 'Unable create data',
@@ -74,12 +73,15 @@ module.exports = {
             }
 
             const getDataItem = await dataItems.findOne({
-                where : { id : body.dataItemId}
-            })
+                where: { id: body.dataItemId },
+            });
 
-            await dataItems.update({
-                stock : getDataItem.dataValues.stock + body.stock 
-            })
+            await dataItems.update(
+                {
+                    stock: getDataItem.dataValues.stock + body.stock,
+                },
+                { where: { id: body.dataItemId } }
+            );
 
             return res.status(200).json({
                 status: 'success',
@@ -87,6 +89,7 @@ module.exports = {
                 data: createData,
             });
         } catch (error) {
+            console.log(error);
             return res.status(500).json({
                 status: 'failed',
                 message: 'internal server error',
@@ -98,11 +101,11 @@ module.exports = {
         const body = req.body;
 
         try {
-            const checkData  = await stockInItems.findOne({
-                where : {id : req.params.id}
-            })
+            const checkData = await stockInItems.findOne({
+                where: { id: req.params.id },
+            });
 
-            if(!checkData) {
+            if (!checkData) {
                 return res.status(400).json({
                     status: 'failed',
                     message: 'Data not found',
@@ -154,20 +157,25 @@ module.exports = {
                 { where: { id: req.params.id } }
             );
 
-            if(body.stock) {
+            if (body.stock) {
                 const getDataStock = await dataItems.findOne({
-                    where : { id : checkData.dataValues.dataItemId }
-                })
+                    where: { id: checkData.dataValues.dataItemId },
+                });
 
-                await dataItems.update({
-                    stock : (getDataStock.dataValues.stock - checkData.dataValues.stock) + body.stock
-                },
-                { where : {id : getDataStock.dataValues.id }})
+                await dataItems.update(
+                    {
+                        stock:
+                            getDataStock.dataValues.stock -
+                            checkData.dataValues.stock +
+                            body.stock,
+                    },
+                    { where: { id: getDataStock.dataValues.id } }
+                );
             }
 
             const getData = await stockInItems.findOne({
-                where : {id : req.params.id}
-            })
+                where: { id: req.params.id },
+            });
 
             return res.status(200).json({
                 status: 'success',
@@ -186,11 +194,11 @@ module.exports = {
         const body = req.body;
 
         try {
-            const checkData  = await stockInItems.findOne({
-                where : {id : req.params.id}
-            })
+            const checkData = await stockInItems.findOne({
+                where: { id: req.params.id },
+            });
 
-            if(!checkData) {
+            if (!checkData) {
                 return res.status(400).json({
                     status: 'failed',
                     message: 'Data not found',
@@ -198,13 +206,16 @@ module.exports = {
             }
 
             const getStock = await dataItems.findOne({
-                where : {id : checkData.dataValues.dataItemId }
-            })
+                where: { id: checkData.dataValues.dataItemId },
+            });
 
-            await dataItems.update({
-                stock : getStock.dataValues.stock - checkData.dataValues.stock
-            },
-            { where : { id : getStock.dataValues.id }})
+            await dataItems.update(
+                {
+                    stock:
+                        getStock.dataValues.stock - checkData.dataValues.stock,
+                },
+                { where: { id: getStock.dataValues.id } }
+            );
 
             await stockInItems.destroy(
                 {
@@ -216,7 +227,7 @@ module.exports = {
 
             return res.status(200).json({
                 status: 'success',
-                message: 'Data has been deleted'
+                message: 'Data has been deleted',
             });
         } catch (error) {
             return res.status(500).json({

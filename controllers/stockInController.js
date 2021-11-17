@@ -48,20 +48,6 @@ module.exports = {
                 });
             }
 
-            const checkData = await dataItems.findOne({
-                where: {
-                    dataItemId: body.dataItemId,
-                    date: body.date,
-                },
-            });
-
-            if (checkData) {
-                return res.status(400).json({
-                    status: 'failed',
-                    message: 'Cannot duplicate data',
-                });
-            }
-
             const createData = await stockInItems.create({
                 dataItemId: body.dataItemId,
                 stock: body.stock,

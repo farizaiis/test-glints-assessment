@@ -48,6 +48,17 @@ module.exports = {
                 });
             }
 
+            const checkItem = await dataItems.findOne({
+                where : {id: body.dataItemId}
+            })
+
+            if(!checkItem) {
+                return res.status(400).json({
+                    status: 'failed',
+                    message: 'Data not found',
+                });
+            }
+
             const createData = await stockOutItems.create({
                 dataItemId: body.dataItemId,
                 stock: body.stock,

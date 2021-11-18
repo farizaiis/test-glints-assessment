@@ -210,7 +210,6 @@ module.exports = {
 
     getDataById: async (req, res) => {
         const stock = req.query.stock;
-        const sort = req.query.sort;
         const filter = req.query.filter;
         const date = req.query.date;
         const dateInput = new Date(date);
@@ -923,42 +922,12 @@ module.exports = {
         const filter = req.query.filter;
         const min = req.query.min;
         const max = req.query.max;
-        const sort = req.query.sort
+        const sort = req.query.sort;
         try {
             if (names) {
                 if (category) {
                     if (filter == 'Price' || filter == 'price') {
-                        if(sort == 'date') {
-                            const findData = await dataItems.findAll({
-                                distinct: true,
-                                where: {
-                                    category: category,
-                                    name: {
-                                        [Op.iLike]: '%' + names + '%',
-                                    },
-                                    price: {
-                                        [Op.gte]: min,
-                                        [Op.lte]: max,
-                                    },
-                                },
-                                order: [['date', 'DESC']],
-                            });
-    
-                            if (!findData) {
-                                return res.status(400).json({
-                                    status: 'failed',
-                                    message: 'Data not found',
-                                });
-                            }
-    
-                            return res.status(200).json({
-                                status: 'success',
-                                message: 'Retrieve data Success',
-                                data: findData,
-                            });
-                        }
-
-                        if(sort == 'price') {
+                        if (sort == 'price') {
                             const findData = await dataItems.findAll({
                                 distinct: true,
                                 where: {
@@ -973,14 +942,14 @@ module.exports = {
                                 },
                                 order: [['price', 'DESC']],
                             });
-    
+
                             if (!findData) {
                                 return res.status(400).json({
                                     status: 'failed',
                                     message: 'Data not found',
                                 });
                             }
-    
+
                             return res.status(200).json({
                                 status: 'success',
                                 message: 'Retrieve data Success',
@@ -1016,33 +985,7 @@ module.exports = {
                         });
                     }
 
-                    if(sort == 'date') {
-                        const findData = await dataItems.findAll({
-                            distinct: true,
-                            where: {
-                                category: category,
-                                name: {
-                                    [Op.iLike]: '%' + names + '%',
-                                },
-                            },
-                            order: [['date', 'DESC']],
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if(sort == 'price') {
+                    if (sort == 'price') {
                         const findData = await dataItems.findAll({
                             distinct: true,
                             where: {
@@ -1067,7 +1010,7 @@ module.exports = {
                             data: findData,
                         });
                     }
-                    
+
                     const findData = await dataItems.findAll({
                         distinct: true,
                         where: {
@@ -1093,36 +1036,7 @@ module.exports = {
                 }
 
                 if (filter == 'Price' || filter == 'price') {
-                    if(sort == 'date') {
-                        const findData = await dataItems.findAll({
-                            distinct: true,
-                            where: {
-                                name: {
-                                    [Op.iLike]: '%' + names + '%',
-                                },
-                                price: {
-                                    [Op.gte]: min,
-                                    [Op.lte]: max,
-                                },
-                            },
-                            order: [['date', 'DESC']],
-                        });
-
-                        if (!findData) {
-                            return res.status(400).json({
-                                status: 'failed',
-                                message: 'Data not found',
-                            });
-                        }
-
-                        return res.status(200).json({
-                            status: 'success',
-                            message: 'Retrieve data Success',
-                            data: findData,
-                        });
-                    }
-
-                    if(sort == 'price') {
+                    if (sort == 'price') {
                         const findData = await dataItems.findAll({
                             distinct: true,
                             where: {
@@ -1178,32 +1092,7 @@ module.exports = {
                     });
                 }
 
-                if(sort == 'date') {
-                    const findData = await dataItems.findAll({
-                        distinct: true,
-                        where: {
-                            name: {
-                                [Op.iLike]: '%' + names + '%',
-                            }
-                        },
-                        order: [['date', 'DESC']],
-                    });
-
-                    if (!findData) {
-                        return res.status(400).json({
-                            status: 'failed',
-                            message: 'Data not found',
-                        });
-                    }
-
-                    return res.status(200).json({
-                        status: 'success',
-                        message: 'Retrieve data Success',
-                        data: findData,
-                    });
-                }
-
-                if(sort == 'price') {
+                if (sort == 'price') {
                     const findData = await dataItems.findAll({
                         distinct: true,
                         where: {
@@ -1253,7 +1142,7 @@ module.exports = {
 
             if (category) {
                 if (filter == 'Price' || filter == 'price') {
-                    if(sort == 'date') {
+                    if (sort == 'date') {
                         const findData = await dataItems.findAll({
                             distinct: true,
                             where: {
@@ -1280,7 +1169,7 @@ module.exports = {
                         });
                     }
 
-                    if(sort == 'price') {
+                    if (sort == 'price') {
                         const findData = await dataItems.findAll({
                             distinct: true,
                             where: {
@@ -1332,7 +1221,7 @@ module.exports = {
                     });
                 }
 
-                if(sort == 'date') {
+                if (sort == 'date') {
                     const findData = await dataItems.findAll({
                         distinct: true,
                         where: {
@@ -1355,7 +1244,7 @@ module.exports = {
                     });
                 }
 
-                if(sort == 'price') {
+                if (sort == 'price') {
                     const findData = await dataItems.findAll({
                         distinct: true,
                         where: {
@@ -1400,33 +1289,7 @@ module.exports = {
             }
 
             if (filter == 'Price' || filter == 'price') {
-                if(sort == 'date') {
-                    const findData = await dataItems.findAll({
-                        distinct: true,
-                        where: {
-                            price: {
-                                [Op.gte]: min,
-                                [Op.lte]: max,
-                            },
-                        },
-                        order: [['date', 'DESC']],
-                    });
-
-                    if (!findData) {
-                        return res.status(400).json({
-                            status: 'failed',
-                            message: 'Data not found',
-                        });
-                    }
-
-                    return res.status(200).json({
-                        status: 'success',
-                        message: 'Retrieve data Success',
-                        data: findData,
-                    });
-                }
-
-                if(sort == 'price') {
+                if (sort == 'price') {
                     const findData = await dataItems.findAll({
                         distinct: true,
                         where: {
@@ -1475,27 +1338,7 @@ module.exports = {
                 });
             }
 
-            if(sort == 'date') {
-                const findData = await dataItems.findAll({
-                    distinct: true,
-                    order: [['date', 'DESC']],
-                });
-
-                if (!findData) {
-                    return res.status(400).json({
-                        status: 'failed',
-                        message: 'Data not found',
-                    });
-                }
-
-                return res.status(200).json({
-                    status: 'success',
-                    message: 'Retrieve data Success',
-                    data: findData,
-                });
-            }
-
-            if(sort == 'price') {
+            if (sort == 'price') {
                 const findData = await dataItems.findAll({
                     distinct: true,
                     order: [['price', 'DESC']],

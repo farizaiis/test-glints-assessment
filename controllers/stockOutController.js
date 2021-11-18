@@ -215,16 +215,13 @@ module.exports = {
                 { where: { id: getStock.dataValues.id } }
             );
 
-            await stockOutItems.destroy(
-                { where: { id: req.params.id } }
-            );
+            await stockOutItems.destroy({ where: { id: req.params.id } });
 
             return res.status(200).json({
                 status: 'success',
                 message: 'Data has been deleted',
             });
         } catch (error) {
-            console.log(error)
             return res.status(500).json({
                 status: 'failed',
                 message: 'internal server error',

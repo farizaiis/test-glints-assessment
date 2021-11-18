@@ -216,9 +216,7 @@ module.exports = {
                 { where: { id: getStock.dataValues.id } }
             );
 
-            await stockInItems.destroy(
-                { where: { id: req.params.id } }
-            );
+            await stockInItems.destroy({ where: { id: req.params.id } });
 
             return res.status(200).json({
                 status: 'success',

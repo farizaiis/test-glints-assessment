@@ -908,7 +908,6 @@ module.exports = {
                 data: findData,
             });
         } catch (error) {
-            console.log(error);
             return res.status(500).json({
                 status: 'failed',
                 message: 'internal server error',

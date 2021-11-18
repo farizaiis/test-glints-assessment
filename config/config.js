@@ -11,8 +11,8 @@ module.exports =
     "dialect": "postgres"
   },
   "test": {
-    "username": "root",
-    "password": null,
+    "username": process.env.DB_USER,
+    "password": process.env.DB_PASS,
     "database": "db_test_glints",
     "host": "127.0.0.1",
     "dialect": "postgres"

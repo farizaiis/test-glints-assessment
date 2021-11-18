@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return await queryInterface.bulkInsert('stockInItems', [
+    return await queryInterface.bulkInsert('stockOutItems', [
       {
         dataItemId: 1,
         stock: 4,
@@ -217,6 +217,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return await queryInterface.bulkInsert('stockInItems', null, {});
+    return await queryInterface.bulkInsert('stockOutItems', null, {});
   }
 };

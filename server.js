@@ -10,7 +10,7 @@ app.use('/v1', Router);
 app.get('/', (req, res) => {
     res.json({
         message: 'server running',
-        serverTime: new Date()
+        serverTime: new Date(),
     });
 });
 

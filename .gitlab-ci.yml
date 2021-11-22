@@ -16,8 +16,7 @@ staging:
     script:
         - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY
     only:
-        - be-diet
-
+        - master
 production:
     type: deploy
     stage: production
@@ -25,4 +24,4 @@ production:
     script:
         - dpl --provider=heroku --app=$HEROKU_APP_PRODUCTION --api-key=$HEROKU_API_KEY
     only:
-        - main
+        - master

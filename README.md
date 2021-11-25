@@ -1,7 +1,7 @@
 
 # GLINTS ASSESSMENT
 
-Documentatio0n Link : https://documenter.getpostman.com/view/17384187/UVCCe49d
+Documentation Link : https://documenter.getpostman.com/view/17384187/UVCCe49d
 
 #### HOW TO RUN IN LOCAL
 - After clone this repo run npm install

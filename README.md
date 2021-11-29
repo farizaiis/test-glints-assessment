@@ -3,6 +3,13 @@
 
 Documentation Link : https://documenter.getpostman.com/view/17384187/UVCCe49d
 
+
+![image](https://user-images.githubusercontent.com/46044060/143915258-d2ba85c8-e8b7-48bd-bd87-8cda3e92c0dc.png)
+
+
+### TECH STACK USED
+![image](https://user-images.githubusercontent.com/46044060/143914469-6fabd481-8bfe-4d98-b825-e4a1a0ea34e0.png)
+
 #### HOW TO RUN IN LOCAL
 - After clone this repo run npm install
 - For create database ---> npx sequelize db:create  
